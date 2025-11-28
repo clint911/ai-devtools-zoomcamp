@@ -1,0 +1,107 @@
+This document outlines the design system for a to-do list app, inspired by the bold colors and geometric patterns of traditional art. The design aims to blend functionality with a visually engaging, culturally rich aesthetic.
+
+2. Color Palette
+Color Name
+Hex Code
+Usage Example
+Sunset Orange
+#FF6B35
+Primary buttons, accents
+Turquoise
+#4ECDC4
+Backgrounds, secondary buttons
+Deep Teal
+#00798C
+Headers, navigation
+Burnt Orange
+#D65022
+Alerts, highlights
+Black
+#000000
+Text, icons
+Cream
+#F5E6CA
+Backgrounds, cards
+
+3. Typography
+Fonts:
+Headings: Montserrat Bold
+
+Body Text: Open Sans
+
+Accent Font: Bebas Neue (for unique messaging)
+
+Sizing:
+Task Title: 18px, #000000
+
+Task Description: 14px, #000000
+
+Unique Messaging: 24px, #FF6B35
+
+
+4. Design Elements
+Icons and Buttons:
+Geometric shapes (triangles, diamonds, arrows) for icons.
+
+Buttons: Rounded rectangles with bold borders, filled with Sunset Orange or Turquoise.
+
+Patterns and Textures:
+Subtle geometric patterns for card backgrounds or section dividers.
+
+Layout:
+Card-Based Tasks: Cream background, colored borders.
+
+Spacing: Generous padding and margins.
+
+
+5. Unique Content Messaging
+Empty State:
+"Your journey starts here! Add a task and let’s paint your day with productivity."
+
+"No tasks yet? Time to create your masterpiece!"
+
+Task Completion:
+"Boom! Task crushed. What’s next on your adventure?"
+
+"You’re on fire! 🔥 Keep the momentum going."
+
+Motivational Quotes:
+"Every small step is a stroke in your masterpiece."
+
+"Productivity is your canvas—make it vibrant!"
+
+
+6. UI Components
+Task Card:
+Background: Cream (#F5E6CA)
+
+Border: 2px solid Deep Teal (#00798C)
+
+Checkbox: Custom geometric design (e.g., diamond shape)
+
+Delete Button: Burnt Orange (#D65022) with a triangle icon
+
+Navigation Bar:
+Background: Deep Teal (#00798C)
+
+Icons: White geometric shapes
+
+Add Task Button:
+Background: Sunset Orange (#FF6B35)
+
+Text: "Add Task" in white, Montserrat Bold
+
+
+7. Example Screens
+Home Screen (Empty State):
+Background: Subtle geometric pattern in Turquoise and Cream
+
+Header: "Your To-Do Canvas Awaits!" (Bebas Neue, 24px, Sunset Orange)
+
+Button: "Add Your First Task" (Sunset Orange button)
+
+Task List Screen:
+Task Cards: Cream background, Deep Teal border, geometric checkboxes
+
+Motivational Quote at Bottom: "Every task completed is a step closer to your goals!"
+

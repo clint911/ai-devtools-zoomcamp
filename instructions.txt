@@ -1,0 +1,5 @@
+Use the design doc for guidance on the ui work
+(a)Add a navbar, in addition to the already present Resolved Tasks Field, add to allow to see active ones(in progress) add cancellation functionality and add the property in the navbar as well. name and add a property to see all the expired tasks. also I should be able to like from the navbar access tasks on the basis of priority.
+(b)Add property to ensure the tasks are numbered, numbered correctly and the same is reflected to allow me to see like 3 pending tasks, 4 expired. Like that like that(don't hardcode the numbers but put the logic)
+(c) update documentation for how to start and run the app as well as user documentation/guide
+(d) update  and run tests

@@ -1,0 +1,29 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>King's Todo App</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <header>
+        <h1><a href="{% url 'home' %}" style="text-decoration: none; color: inherit;">King's Todo App</a></h1>
+        <nav>
+            <a href="{% url 'todo_list' %}">Active Tasks ({{ active_task_count }})</a>
+            <a href="{% url 'resolved_todo_list' %}">Resolved Tasks ({{ resolved_task_count }})</a>
+            <a href="{% url 'cancelled_todo_list' %}">Cancelled Tasks ({{ cancelled_task_count }})</a>
+            <a href="{% url 'expired_todo_list' %}">Expired Tasks ({{ expired_task_count }})</a>
+            <a href="#">Priority</a> {# Placeholder for priority filtering #}
+            <div class="priority-dropdown">
+                <a href="{% url 'todo_list_by_priority' 'L' %}">Low Priority</a>
+                <a href="{% url 'todo_list_by_priority' 'M' %}">Medium Priority</a>
+                <a href="{% url 'todo_list_by_priority' 'H' %}">High Priority</a>
+            </div>
+        </nav>
+    </header>    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+</body>
+</html>
+

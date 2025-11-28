@@ -1,0 +1,25 @@
+{% extends 'todos/base.html' %}
+
+{% block content %}
+<div class="form-card">
+    <h2>{% if object %}Edit Todo{% else %}Create Todo{% endif %}</h2>
+    <form method="post">
+        {% csrf_token %}
+        {% for field in form %}
+            <div class="form-group">
+                {{ field.label_tag }}
+                {{ field }}
+                {% if field.errors %}
+                    <ul class="errorlist">
+                        {% for error in field.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+        {% endfor %}
+        <button type="submit" class="btn btn-save">Save</button>
+        <a href="{% if object %}{% url 'todo_detail' object.pk %}{% else %}{% url 'todo_list' %}{% endif %}" class="btn btn-back">Back</a>
+    </form>
+</div>
+{% endblock %}

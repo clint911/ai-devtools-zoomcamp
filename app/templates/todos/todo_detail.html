@@ -1,0 +1,26 @@
+{% extends 'todos/base.html' %}
+
+{% block content %}
+<div class="detail-card">
+    <h2 class="task-title">{{ todo.title }}</h2>
+    <p class="task-description">{{ todo.description }}</p>
+    <p>Due: {{ todo.due_date }}</p>
+    <p>Priority: {{ todo.get_priority_display }}</p>
+    <p>Status: {% if todo.completed %}Completed{% else %}Pending{% endif %}</p>
+
+    <div class="detail-actions">
+        <form method="POST" action="{% url 'todo_resolve' todo.pk %}" style="display: inline;">
+            {% csrf_token %}
+            <input type="checkbox" name="completed" {% if todo.completed %}checked{% endif %} onchange="this.form.submit()"> Mark as Completed
+        </form>
+        <form method="POST" action="{% url 'todo_cancel' todo.pk %}" style="display: inline; margin-left: 10px;">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-warning">{% if todo.cancelled %}Uncancel{% else %}Cancel{% endif %}</button>
+        </form>
+        <a href="{% url 'todo_update' todo.pk %}" class="btn btn-edit">Edit</a>
+        <a href="{% url 'todo_delete' todo.pk %}" class="btn btn-delete">Delete</a>
+    </div>
+</div>
+
+<a href="{% url 'todo_list' %}" class="btn btn-back">Back to list</a>
+{% endblock %}

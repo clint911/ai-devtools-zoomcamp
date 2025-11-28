@@ -1,0 +1,9 @@
+{% extends 'todos/base.html' %}
+
+{% block content %}
+<div class="home-container">
+    <h2 class="accent-heading">Your To-Do Canvas Awaits!</h2>
+    <p>Your journey starts here! Add a task and let’s paint your day with productivity.</p>
+    <a href="{% url 'todo_create' %}" class="home-button">Add Your First Task</a>
+</div>
+{% endblock %}

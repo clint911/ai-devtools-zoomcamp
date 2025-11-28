@@ -1,0 +1,31 @@
+{% extends 'todos/base.html' %}
+
+{% block content %}
+<a href="{% url 'todo_create' %}" class="add-task-btn">Add Task</a>
+
+{% if todos %}
+    {% for todo in todos %}
+        <div class="task-card">
+            <div class="task-details">
+                <form method="POST" action="{% url 'todo_resolve' todo.pk %}" style="display: inline;">
+                    {% csrf_token %}
+                    <input type="checkbox" name="completed" {% if todo.completed %}checked{% endif %} onchange="this.form.submit()">
+                </form>
+                <a href="{% url 'todo_detail' todo.pk %}" class="task-title">{{ todo.title }}</a>
+            </div>
+            <div class="task-actions">
+                <a href="{% url 'todo_delete' todo.pk %}" class="delete-btn">Delete</a>
+            </div>
+        </div>
+    {% endfor %}
+{% else %}
+    <div class="task-card">
+        <p>No tasks yet? Time to create your masterpiece!</p>
+    </div>
+{% endif %}
+
+<div class="motivational-quote">
+    <p>Every task completed is a step closer to your goals!</p>
+</div>
+{% endblock %}
+

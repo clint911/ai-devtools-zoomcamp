@@ -1,0 +1,34 @@
+{% extends 'todos/base.html' %}
+
+{% block content %}
+<a href="{% url 'todo_create' %}" class="add-task-btn">Add New Task</a>
+
+<div class="motivational-quote">
+    <h2 class="accent-heading">Resolved Tasks</h2>
+</div>
+
+{% if todos %}
+    {% for todo in todos %}
+        <div class="task-card">
+            <div class="task-details">
+                <form method="POST" action="{% url 'todo_resolve' todo.pk %}" style="display: inline;">
+                    {% csrf_token %}
+                    <input type="checkbox" name="completed" {% if todo.completed %}checked{% endif %} onchange="this.form.submit()">
+                </form>
+                <a href="{% url 'todo_detail' todo.pk %}" class="task-title">{{ todo.title }}</a>
+            </div>
+            <div class="task-actions">
+                <a href="{% url 'todo_delete' todo.pk %}" class="delete-btn">Delete</a>
+            </div>
+        </div>
+    {% endfor %}
+{% else %}
+    <div class="task-card">
+        <p>No resolved tasks yet. Keep up the good work!</p>
+    </div>
+{% endif %}
+
+<div class="motivational-quote">
+    <p>You’re on fire! 🔥 Keep the momentum going.</p>
+</div>
+{% endblock %}

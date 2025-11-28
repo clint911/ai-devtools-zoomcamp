@@ -1,0 +1,47 @@
+{% extends 'todos/base.html' %}
+
+{% block content %}
+<style>
+    .delete-card {
+        background-color: var(--cream);
+        border: 2px solid var(--burnt-orange);
+        border-radius: 8px;
+        padding: 1.5rem;
+        text-align: center;
+    }
+    .delete-card h2 {
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 700;
+        color: var(--burnt-orange);
+    }
+    .btn {
+        padding: 0.8rem 1.5rem;
+        border-radius: 8px;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 700;
+        text-decoration: none;
+        display: inline-block;
+        margin-top: 1rem;
+        border: none;
+        cursor: pointer;
+    }
+    .btn-delete {
+        background-color: var(--burnt-orange);
+        color: white;
+    }
+    .btn-cancel {
+        background-color: var(--deep-teal);
+        color: white;
+        margin-left: 1rem;
+    }
+</style>
+
+<div class="delete-card">
+    <h2>Are you sure you want to delete "{{ object.title }}"?</h2>
+    <form method="post" style="display: inline;">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-delete">Yes, delete</button>
+    </form>
+    <a href="{% url 'todo_list' %}" class="btn btn-cancel">No, cancel</a>
+</div>
+{% endblock %}
