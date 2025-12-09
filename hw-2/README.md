@@ -18,7 +18,7 @@ A modern web application for conducting coding interviews with real-time collabo
 
 ### 🌐 Live Application
 ```
-https://your-deployment-url.com
+http://washikadaoserver.xyz:5174/
 ```
 
 **No installation required!** Simply:
