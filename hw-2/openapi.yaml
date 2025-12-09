@@ -1,0 +1,233 @@
+openapi: 3.0.0
+info:
+  title: CODE_COLLAB API
+  description: Real-time collaborative coding interview platform API
+  version: 1.0.0
+  contact:
+    name: CODE_COLLAB Team
+
+servers:
+  - url: http://localhost:3001
+    description: Development server
+
+paths:
+  /api/sessions:
+    post:
+      summary: Create a new coding session
+      description: Creates a new collaborative coding session and returns the session ID
+      tags:
+        - Sessions
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                language:
+                  type: string
+                  enum: [javascript, python]
+                  default: javascript
+                initialCode:
+                  type: string
+                  default: "// Start coding...\n"
+      responses:
+        '201':
+          description: Session created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  sessionId:
+                    type: string
+                    example: "abc123xy"
+                  createdAt:
+                    type: string
+                    format: date-time
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /api/sessions/{sessionId}:
+    get:
+      summary: Get session details
+      description: Retrieves the current state of a coding session
+      tags:
+        - Sessions
+      parameters:
+        - name: sessionId
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Unique session identifier
+      responses:
+        '200':
+          description: Session details retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Session'
+        '404':
+          description: Session not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /api/sessions/{sessionId}/code:
+    get:
+      summary: Get current code
+      description: Retrieves the current code content for a session
+      tags:
+        - Code
+      parameters:
+        - name: sessionId
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Unique session identifier
+      responses:
+        '200':
+          description: Code retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: string
+                  language:
+                    type: string
+                    enum: [javascript, python]
+        '404':
+          description: Session not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+    put:
+      summary: Update code
+      description: Updates the code content for a session (typically handled via WebSocket)
+      tags:
+        - Code
+      parameters:
+        - name: sessionId
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Unique session identifier
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - code
+              properties:
+                code:
+                  type: string
+                language:
+                  type: string
+                  enum: [javascript, python]
+      responses:
+        '200':
+          description: Code updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+        '404':
+          description: Session not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+components:
+  schemas:
+    Session:
+      type: object
+      properties:
+        sessionId:
+          type: string
+          description: Unique session identifier
+        code:
+          type: string
+          description: Current code content
+        language:
+          type: string
+          enum: [javascript, python]
+          description: Programming language
+        users:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique user identifier (socket ID)
+        name:
+          type: string
+          description: User display name
+
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message
+        statusCode:
+          type: integer
+          description: HTTP status code
+
+  # WebSocket Events Documentation
+  # Since OpenAPI 3.0 doesn't fully support WebSocket, documenting here
+  #
+  # WebSocket Endpoint: ws://localhost:3001
+  #
+  # Client -> Server Events:
+  #   - join-session: { sessionId: string, user: User }
+  #   - code-change: { sessionId: string, code: string }
+  #   - language-change: { sessionId: string, language: 'javascript' | 'python' }
+  #   - disconnect: automatic on connection close
+  #
+  # Server -> Client Events:
+  #   - initial-state: { code: string, language: string, users: User[] }
+  #   - code-update: string (new code)
+  #   - language-change: 'javascript' | 'python'
+  #   - users-update: User[] (updated user list)
+  #   - user-joined: User
+  #   - user-left: string (user ID)
+
+tags:
+  - name: Sessions
+    description: Session management endpoints
+  - name: Code
+    description: Code management endpoints
