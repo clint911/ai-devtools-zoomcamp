@@ -11,7 +11,7 @@ async function bootstrap() {
     credentials: true,
   });
 
-  await app.listen(process.env.PORT ?? 3001);
-  console.log('🚀 Backend server running on http://localhost:3001');
+  await app.listen(process.env.PORT ?? 3000);
+  console.log(`🚀 Backend server running on http://localhost:${process.env.PORT ?? 3000}`);
 }
 bootstrap();
